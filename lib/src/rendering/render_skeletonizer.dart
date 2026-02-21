@@ -14,13 +14,13 @@ class RenderSkeletonizer extends RenderProxyBox with _RenderSkeletonBase<RenderB
     required bool isZone,
     required bool enabled,
     RenderBox? child,
-  }) : _animationValue = animationValue,
-       _textDirection = textDirection,
-       _config = config,
-       _isZone = isZone,
-       _ignorePointers = ignorePointers,
-       _enabled = enabled,
-       super(child);
+  })  : _animationValue = animationValue,
+        _textDirection = textDirection,
+        _config = config,
+        _isZone = isZone,
+        _ignorePointers = ignorePointers,
+        _enabled = enabled,
+        super(child);
 
   bool _enabled;
 
@@ -93,7 +93,7 @@ class RenderSkeletonizer extends RenderProxyBox with _RenderSkeletonBase<RenderB
 
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
-    if (_ignorePointers) return false;
+    if (enabled && _ignorePointers) return false;
     return super.hitTest(result, position: position);
   }
 }
@@ -110,13 +110,13 @@ class RenderSliverSkeletonizer extends RenderProxySliver with _RenderSkeletonBas
     required bool isZone,
     required bool enabled,
     RenderSliver? child,
-  }) : _animationValue = animationValue,
-       _textDirection = textDirection,
-       _config = config,
-       _isZone = isZone,
-       _ignorePointers = ignorePointers,
-       _enabled = enabled,
-       super(child);
+  })  : _animationValue = animationValue,
+        _textDirection = textDirection,
+        _config = config,
+        _isZone = isZone,
+        _ignorePointers = ignorePointers,
+        _enabled = enabled,
+        super(child);
 
   bool _enabled;
 
@@ -192,7 +192,7 @@ class RenderSliverSkeletonizer extends RenderProxySliver with _RenderSkeletonBas
     required double mainAxisPosition,
     required double crossAxisPosition,
   }) {
-    if (_ignorePointers) return false;
+    if (enabled && _ignorePointers) return false;
     return super.hitTest(
       result,
       mainAxisPosition: mainAxisPosition,
