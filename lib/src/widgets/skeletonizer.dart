@@ -301,17 +301,11 @@ class _Skeletonizer extends Skeletonizer {
 
   @override
   Widget build(BuildContext context, SkeletonizerBuildData data) {
-    Widget body =
-        data.enabled
-            ? SkeletonizerRenderObjectWidget(
-              key: const ValueKey('skeletonizer'),
-              data: data,
-              child: child,
-            )
-            : KeyedSubtree(
-              key: const ValueKey('content'),
-              child: child,
-            );
+    Widget body = SkeletonizerRenderObjectWidget(
+      key: data.config.enableSwitchAnimation ? ValueKey(data.enabled ? 'skeletonizer' : 'content') : null,
+      data: data,
+      child: child,
+    );
     if (data.config.enableSwitchAnimation) {
       final switchConfig = data.config.switchAnimationConfig;
       body = AnimatedSwitcher(
@@ -371,13 +365,10 @@ class SliverSkeletonizer extends Skeletonizer {
       isZone: data.isZone,
       isInsideZone: data.isInsideZone,
       animationController: data.animationController,
-      child:
-          data.enabled
-              ? SliverSkeletonizerRenderObjectWidget(
-                data: data,
-                child: child,
-              )
-              : child,
+      child: SliverSkeletonizerRenderObjectWidget(
+        data: data,
+        child: child,
+      ),
     );
   }
 }

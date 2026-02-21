@@ -22,6 +22,7 @@ class SkeletonizerRenderObjectWidget extends SingleChildRenderObjectWidget {
       config: data.config,
       ignorePointers: data.ignorePointers,
       isZone: data.isZone,
+      enabled: data.enabled,
     );
   }
 
@@ -35,6 +36,7 @@ class SkeletonizerRenderObjectWidget extends SingleChildRenderObjectWidget {
       ..config = data.config
       ..ignorePointers = data.ignorePointers
       ..isZone = data.isZone
+      ..enabled = data.enabled
       ..textDirection = data.textDirection;
   }
 }
@@ -59,6 +61,7 @@ class SliverSkeletonizerRenderObjectWidget extends SingleChildRenderObjectWidget
       config: data.config,
       ignorePointers: data.ignorePointers,
       isZone: data.isZone,
+      enabled: data.enabled,
     );
   }
 
@@ -72,6 +75,7 @@ class SliverSkeletonizerRenderObjectWidget extends SingleChildRenderObjectWidget
       ..config = data.config
       ..ignorePointers = data.ignorePointers
       ..isZone = data.isZone
+      ..enabled = data.enabled
       ..textDirection = data.textDirection;
   }
 }

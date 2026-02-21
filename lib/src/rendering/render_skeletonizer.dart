@@ -12,13 +12,27 @@ class RenderSkeletonizer extends RenderProxyBox with _RenderSkeletonBase<RenderB
     required SkeletonizerConfigData config,
     required bool ignorePointers,
     required bool isZone,
+    required bool enabled,
     RenderBox? child,
   }) : _animationValue = animationValue,
        _textDirection = textDirection,
        _config = config,
        _isZone = isZone,
        _ignorePointers = ignorePointers,
+       _enabled = enabled,
        super(child);
+
+  bool _enabled;
+
+  @override
+  bool get enabled => _enabled;
+
+  set enabled(bool value) {
+    if (_enabled != value) {
+      _enabled = value;
+      markNeedsPaint();
+    }
+  }
 
   TextDirection _textDirection;
 
@@ -94,13 +108,27 @@ class RenderSliverSkeletonizer extends RenderProxySliver with _RenderSkeletonBas
     required SkeletonizerConfigData config,
     required bool ignorePointers,
     required bool isZone,
+    required bool enabled,
     RenderSliver? child,
   }) : _animationValue = animationValue,
        _textDirection = textDirection,
        _config = config,
        _isZone = isZone,
        _ignorePointers = ignorePointers,
+       _enabled = enabled,
        super(child);
+
+  bool _enabled;
+
+  @override
+  bool get enabled => _enabled;
+
+  set enabled(bool value) {
+    if (_enabled != value) {
+      _enabled = value;
+      markNeedsPaint();
+    }
+  }
 
   TextDirection _textDirection;
 
@@ -174,6 +202,9 @@ class RenderSliverSkeletonizer extends RenderProxySliver with _RenderSkeletonBas
 }
 
 mixin _RenderSkeletonBase<R extends RenderObject> on RenderObjectWithChildMixin<R> {
+  /// Whether skeletonizing is enabled
+  bool get enabled;
+
   /// The text direction used to resolve Directional geometries
   TextDirection get textDirection;
 
@@ -214,6 +245,10 @@ mixin _RenderSkeletonBase<R extends RenderObject> on RenderObjectWithChildMixin<
 
   @override
   void paint(PaintingContext context, Offset offset) {
+    if (!enabled) {
+      super.paint(context, offset);
+      return;
+    }
     layer ??= OffsetLayer();
     if (layer!.hasChildren) {
       layer!.removeAllChildren();
